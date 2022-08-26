@@ -1,0 +1,43 @@
+@import '../../styles/var';
+
+.navbar {
+  height: 60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba($color: #000000, $alpha: .1);
+  .inner {
+    width: 1190px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logArea {
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    ul {
+      display: flex;
+      list-style: none;
+      li {
+        margin-right: 20px;
+        font-size: 16px;
+        &:last-child {
+          margin: 0;
+        }
+        &.active {
+          color: $base-color;
+        }
+      }
+    }
+    .operationArea {
+      button {
+        &:first-child {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
