@@ -1,0 +1,22 @@
+@import "styles/_var.scss";
+.loginModal {
+  .verifyCodeBox {
+    position: relative;
+    .getVerifyCodeContainer {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
+      z-index: 1;
+    }
+  }
+  .loginModalFooter {
+    p {
+      margin-top: 10px;
+    }
+    a {
+      color: $base-color;
+    }
+  }
+}
