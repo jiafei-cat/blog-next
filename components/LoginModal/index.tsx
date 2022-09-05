@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from './index.module.scss'
 import type { NextPage } from 'next'
-import { Modal, Form, Button, Input, Row, Col } from 'antd'
+import { Modal, Form, Button, Input, Row, Col, message } from 'antd'
 import CountDown from 'components/CountDown'
+import request from 'service/fetch'
 
 const { Item } = Form
 const { useState } = React
@@ -11,15 +12,25 @@ const LoginModal: NextPage<{
   isShow: boolean
   onClose?: VoidFunction
 }> = ({ isShow, onClose }) => {
+  const [form] = Form.useForm()
   const DEFAULT_TIME_DOWN = 30
 
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
 
   const handleLogin = (values: any) => {
-    console.log(values)
+    console.log(values)  
   }
 
-  const handleGetVerifyCode = () => {
+  const handleGetVerifyCode = async () => {
+    const phone = await form.getFieldValue('phone')
+    if (!phone) {
+      message.error('请输入手机号后再获取!')
+      return
+    }
+
+    const result = await request.post('/api/user/sendVerifyCode', {
+      to: phone
+    })
     setIsShowVerifyCode(true)
   }
 
@@ -34,7 +45,7 @@ const LoginModal: NextPage<{
     >
         <section className="login-modal-content">
           <h2>手机号登录</h2>
-          <Form layout="vertical" onFinish={handleLogin}>
+          <Form layout="vertical" onFinish={handleLogin} form={form}>
             <Item
               name="phone"
               label="手机号"
