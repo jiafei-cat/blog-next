@@ -5,6 +5,7 @@ import { Modal, Form, Button, Input, Row, Col, message } from 'antd'
 import CountDown from 'components/CountDown'
 import request from 'service/fetch'
 import { API_STATUS_CODE } from 'pages/enum'
+import userStore, { IUserInfo } from 'store/userStore'
 
 const { Item } = Form
 const { useState } = React
@@ -19,13 +20,18 @@ const LoginModal: NextPage<{
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
 
   const handleLogin = async (values: any) => {
-    console.log(values)
     const result = await request.post('/api/user/login', values)
     if (result?.code !== API_STATUS_CODE.SUCCESS) {
       message.error(result?.message)
       return
     }
-  
+    console.log(result)
+
+    const store = userStore()
+    store.setUserInfo(result.data as IUserInfo)
+    console.log(store)
+    onClose && onClose()
+    message.success('登录成功!')
   }
 
   const handleGetVerifyCode = async () => {
@@ -66,19 +72,21 @@ const LoginModal: NextPage<{
             >
               <Input type="text" placeholder="请输入手机号" />
             </Item>
-            <Row className={styles.verifyCodeBox}>
-              <Item
-                name="verifyCode"
-                label="手机验证码"
-                rules={[{ required: true, message: "请输入验证码" }]}
-              >
-                <Input width={'100%'} type="text" placeholder="请输入验证码" />
-              </Item>
-              <div className={styles.getVerifyCodeContainer}>
-                { isShowVerifyCode ? <CountDown time={DEFAULT_TIME_DOWN} onCountDown={() => setIsShowVerifyCode(false)} /> : (
-                  <a href="javascript:void(0);" onClick={handleGetVerifyCode}>获取验证码</a>
-                )}
-              </div>
+            <Row  className={styles.verifyCodeBox}>
+              <Col span={24}>
+                <Item
+                  name="verifyCode"
+                  label="手机验证码"
+                  rules={[{ required: true, message: "请输入验证码" }]}
+                >
+                  <Input width={'100%'} type="text" placeholder="请输入验证码" />
+                </Item>
+                <div className={styles.getVerifyCodeContainer}>
+                  { isShowVerifyCode ? <CountDown time={DEFAULT_TIME_DOWN} onCountDown={() => setIsShowVerifyCode(false)} /> : (
+                    <a href="javascript:void(0);" onClick={handleGetVerifyCode}>获取验证码</a>
+                  )}
+                </div>
+              </Col>
             </Row>
             <Col span="24">
               <Button type="primary" htmlType="submit" style={{

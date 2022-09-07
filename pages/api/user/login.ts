@@ -32,7 +32,7 @@ async function login (
 
   const sessionVerifyCode = String(session?.verifyCode)
   const identify_type = isPhoneLogin ? 'phone' : 'password'
-
+  console.log(`[logger] session verify code is [${sessionVerifyCode}]`)
   /** 验证码错误 */
   if(sessionVerifyCode !== verifyCode) {
     res.status(200).json({
