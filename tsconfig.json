@@ -14,6 +14,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "experimentalDecorators": true, // 支持装饰器
+    "emitDecoratorMetadata": true, // 元数据reflect-metadata(ES7提供/IOC核心)
     "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

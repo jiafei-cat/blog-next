@@ -6,6 +6,7 @@ import request from 'service/fetch'
 import websiteConfig from 'website.config.json'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { ironOptions } from 'config'
+import { ISession } from '..'
 
 type Data = {
   code: number
@@ -17,6 +18,7 @@ async function sendVerifyCode (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  const session:ISession = req.session
   const { to } = req.body
   const { accountSid, TOKEN, appId } = websiteConfig
   const timeStamp = format(new Date(), 'yyyyMMddHHmmss')
@@ -41,6 +43,9 @@ async function sendVerifyCode (
 
   res = res.status(200)
   if(statusCode === '000000') {
+    session.verifyCode = verifyCode
+    await session.save()
+
     res.json({
       code: 0,
       data: templateSMS,

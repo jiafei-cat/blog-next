@@ -1,0 +1,6 @@
+
+export enum API_STATUS_CODE {
+  SUCCESS = 0,
+  ERROR_VERITY_CODE = 10001
+}
+
