@@ -1,7 +1,9 @@
 export interface IUserInfo {
-  userId?: number | null
+  id?: number | null
   nickname?: string
   avatar?: string
+  introduce?: string
+  job?: string
 }
 
 export interface IUserStore {
@@ -11,8 +13,8 @@ export interface IUserStore {
 
 const userStore = ():IUserStore => {
   return {
-    userInfo: {},
-    setUserInfo: function(value) {
+    userInfo: { },
+    setUserInfo (value) {
       this.userInfo = value
     }
   }

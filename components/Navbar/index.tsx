@@ -4,16 +4,24 @@ import { navs } from 'components/Navbar/config'
 import styles from './index.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Button } from 'antd'
+import { Avatar, Button, Dropdown, Menu } from 'antd'
 import LoginModal from 'components/LoginModal'
+import { observer } from 'mobx-react-lite'
+import { useStore } from 'store'
+import ChildrenMenu from './ChildrenMenu'
 
-const { useState } = React
+const { useState, useEffect } = React
 
 const Navbar: NextPage = () => {
   const { pathname, push } = useRouter()
+  const store = useStore()
+  const { user: { userInfo }}  = store
+  const isLogin = !!userInfo?.id
+
   const [isShowLogin, setIsShowLogin] = useState(false)
 
-  const handleGotoEditorPage = () => {}
+  const handleGotoEditorPage = () => {
+  }
 
   const handleLogin = () => {
     setIsShowLogin(true)
@@ -37,12 +45,25 @@ const Navbar: NextPage = () => {
             ))}
           </ul>
         </section>
-        <section className={styles.operationArea}>
-          <Button onClick={handleGotoEditorPage}>写文章</Button>
-          <Button type="primary" onClick={handleLogin}>
-            登录
-          </Button>
-        </section>
+        {
+          isLogin && (
+            <section className={styles.userInfo}>
+              <Button onClick={handleGotoEditorPage}>写文章</Button>
+              <Dropdown placement="bottom" arrow overlay={<ChildrenMenu />}>
+                <Avatar src={userInfo?.avatar}></Avatar>
+              </Dropdown>
+            </section>
+          )
+        }
+        {
+          !isLogin && (
+            <section className={styles.operationArea}>
+              <Button type="primary" onClick={handleLogin}>
+                登录
+              </Button>
+            </section>
+          )
+        }
       </section>
       <LoginModal
         isShow={isShowLogin}
@@ -52,4 +73,4 @@ const Navbar: NextPage = () => {
   )
 }
 
-export default Navbar
+export default observer(Navbar)

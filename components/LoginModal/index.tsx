@@ -4,8 +4,10 @@ import type { NextPage } from 'next'
 import { Modal, Form, Button, Input, Row, Col, message } from 'antd'
 import CountDown from 'components/CountDown'
 import request from 'service/fetch'
+import { observer } from 'mobx-react-lite'
 import { API_STATUS_CODE } from 'pages/enum'
 import userStore, { IUserInfo } from 'store/userStore'
+import { useStore } from 'store'
 
 const { Item } = Form
 const { useState } = React
@@ -16,6 +18,7 @@ const LoginModal: NextPage<{
 }> = ({ isShow, onClose }) => {
   const [form] = Form.useForm()
   const DEFAULT_TIME_DOWN = 30
+  const store = useStore()
 
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
 
@@ -27,9 +30,7 @@ const LoginModal: NextPage<{
     }
     console.log(result)
 
-    const store = userStore()
-    store.setUserInfo(result.data as IUserInfo)
-    console.log(store)
+    store.user.setUserInfo(result.data as IUserInfo)
     onClose && onClose()
     message.success('登录成功!')
   }
@@ -83,7 +84,7 @@ const LoginModal: NextPage<{
                 </Item>
                 <div className={styles.getVerifyCodeContainer}>
                   { isShowVerifyCode ? <CountDown time={DEFAULT_TIME_DOWN} onCountDown={() => setIsShowVerifyCode(false)} /> : (
-                    <a href="javascript:void(0);" onClick={handleGetVerifyCode}>获取验证码</a>
+                    <a href="#!" onClick={handleGetVerifyCode}>获取验证码</a>
                   )}
                 </div>
               </Col>
@@ -97,11 +98,11 @@ const LoginModal: NextPage<{
           </Form>
           <footer className={styles.loginModalFooter}>
             <p>
-              <a href="">使用Github登录</a>
+              <a href="#!">使用Github登录</a>
             </p>
             <p>
               注册登录即表示同意
-              <a href="">隐私政策</a>
+              <a href="#!">隐私政策</a>
             </p>
           </footer>
         </section>

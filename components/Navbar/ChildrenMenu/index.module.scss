@@ -1,0 +1,24 @@
+.childrenMenu {
+  width: 160px;
+  padding: 16px 10px 10px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+  .userName {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+    transition: all .3s linear;
+    &:hover {
+      color: #999;
+    }
+  }
+}
+
+.userMenu {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid #eee;
+  box-shadow: none;
+  background: transparent;
+}

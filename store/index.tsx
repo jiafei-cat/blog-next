@@ -2,7 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { useLocalObservable, enableStaticRendering } from 'mobx-react-lite'
 import createStore, { IStore } from './rootStore'
 
-const storeContext = React.createContext({})
+const StoreContext = React.createContext({})
 
 interface IProps {
   initialValue?: {
@@ -11,7 +11,7 @@ interface IProps {
   children: ReactElement
 }
 
-enableStaticRendering(true)
+enableStaticRendering(false)
 
 export const StoreProvider: React.FC<IProps> = ({
   children,
@@ -19,14 +19,14 @@ export const StoreProvider: React.FC<IProps> = ({
 }) => {
   const store: IStore = useLocalObservable(createStore(initialValue))
   return (
-    <storeContext.Provider value={store}>
+    <StoreContext.Provider value={store}>
       {children}
-    </storeContext.Provider>
+    </StoreContext.Provider>
   )
 }
 
 export const useStore = () => {
-  const store: IStore = useContext(storeContext) as IStore
+  const store: IStore = useContext(StoreContext) as IStore
 
   if (!store) {
     throw new Error('Data does not exist')
