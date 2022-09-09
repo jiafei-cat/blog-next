@@ -1,13 +1,12 @@
 import React, { ReactElement, useContext } from 'react'
 import { useLocalObservable, enableStaticRendering } from 'mobx-react-lite'
 import createStore, { IStore } from './rootStore'
+import { IUserInfo } from './userStore'
 
 const StoreContext = React.createContext({})
 
 interface IProps {
-  initialValue?: {
-
-  }
+  initialValue?: IUserInfo
   children: ReactElement
 }
 

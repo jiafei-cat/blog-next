@@ -4,7 +4,7 @@ interface ICookieInfo {
   avatar: string
 }
 
-const expires = new Date(Date.now() + 24 *  60 * 60)
+const expires = new Date(Date.now() + 24 *  60 * 60 * 1000)
 const path = '/'
 
 const commonOptions = {

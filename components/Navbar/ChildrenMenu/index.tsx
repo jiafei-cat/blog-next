@@ -1,9 +1,11 @@
 import React from 'react'
-import { Row, Col, Menu, Avatar, MenuProps } from 'antd'
+import { Row, Col, Menu, Avatar, MenuProps, message } from 'antd'
 import styles from './index.module.scss'
 import { useStore } from 'store'
 import { observer } from 'mobx-react-lite'
-import { AppstoreOutlined, LoginOutlined, UserOutlined } from '@ant-design/icons'
+import { LoginOutlined, UserOutlined } from '@ant-design/icons'
+import request from 'service/fetch'
+import { API_STATUS_CODE } from 'pages/enum'
 
 const items: MenuProps['items'] = [
   {
@@ -16,12 +18,12 @@ const items: MenuProps['items'] = [
     label: '退出登录',
     icon: <LoginOutlined style={{ fontSize: 16, color: '#666' }} />,
   }
-];
+]
 
 const ChildrenMenu = () => {
   const store = useStore()
   const userInfo = store.user.userInfo
-  console.log(userInfo)
+
   const handleClickMenu = ({
     key
   }: {
@@ -29,7 +31,20 @@ const ChildrenMenu = () => {
   }) => {
     if(key === 'logout') {
       console.log('logout')
+      handleLogout()
+    }
+  }
+
+  const handleLogout = async () => {
+    const result = await request.post('/api/user/logout')
+
+    if (result.code !== API_STATUS_CODE.SUCCESS) {
+      message.error(result.message)
+    } else {
       store.user.setUserInfo({})
+      message.success('退出成功!', () => {
+        window.location.reload()
+      })
     }
   }
 

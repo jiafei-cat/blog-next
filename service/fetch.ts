@@ -24,5 +24,6 @@ requestInstance.interceptors.response.use(response => {
   }
 }, (error) => Promise.reject(error))
 
+const request = requestInstance
 
-export default requestInstance
+export default request
