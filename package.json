@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uiw/react-md-editor": "3.6.0",
     "antd": "^4.22.8",
     "axios": "^0.27.2",
     "date-fns": "^2.29.2",
@@ -21,6 +22,7 @@
     "mysql2": "^2.3.3",
     "next": "12.2.5",
     "next-cookie": "^2.8.0",
+    "next-remove-imports": "^1.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reflect-metadata": "^0.1.13",

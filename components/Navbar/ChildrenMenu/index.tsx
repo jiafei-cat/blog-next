@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import request from 'service/fetch'
 import { API_STATUS_CODE } from 'pages/enum'
+import { useRouter } from 'next/router'
 
 const items: MenuProps['items'] = [
   {
@@ -23,7 +24,7 @@ const items: MenuProps['items'] = [
 const ChildrenMenu = () => {
   const store = useStore()
   const userInfo = store.user.userInfo
-
+  const { push } = useRouter()
   const handleClickMenu = ({
     key
   }: {
@@ -32,6 +33,9 @@ const ChildrenMenu = () => {
     if(key === 'logout') {
       console.log('logout')
       handleLogout()
+    }
+    if (key === 'user') {
+      push(`/user/${store.user.userInfo.id}`)
     }
   }
 

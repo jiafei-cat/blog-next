@@ -21,6 +21,7 @@ const Navbar: NextPage = () => {
   const [isShowLogin, setIsShowLogin] = useState(false)
 
   const handleGotoEditorPage = () => {
+    push('/editor/new')
   }
 
   const handleLogin = () => {
