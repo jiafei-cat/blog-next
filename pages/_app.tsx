@@ -11,8 +11,6 @@ interface IProps extends AppProps {
 }
 
 function MyApp({ initialValue, Component, pageProps }: IProps) {
-  console.log('initialValue')
-  console.log(initialValue)
   let Container = null
 
   if (Component?.layout === false) {
