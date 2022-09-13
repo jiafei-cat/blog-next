@@ -1,0 +1,41 @@
+.articleContainer {
+  margin-top: 20px;
+  .articleContent {
+    padding: 20px;
+    background: #fff;
+    h2 {
+      font-size: 28px;
+    }
+    .userInfo {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      .avatar {
+        width: 38px;
+        height: 38px;
+      }
+      &>p {
+        display: flex;
+        flex-direction: column;
+      }
+      em {
+        font-style: normal;
+        margin: 0 10px;
+        &:last-child {
+          color: #999;
+          display: flex;
+          a {
+            margin-left: 10px;
+            color: #1e80ff;
+          }
+        }
+      }
+    }
+    .content {
+      margin-top: 10px;
+    }
+  }
+  .commentList {
+
+  }
+}

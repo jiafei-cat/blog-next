@@ -11,7 +11,7 @@ import { setCookie } from 'utils'
 
 type Data = {
   code: number
-  data: null
+  data: null | User
   message: string
 }
 

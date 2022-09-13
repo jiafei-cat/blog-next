@@ -1,0 +1,11 @@
+.content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  &>section {
+    border-bottom: 1px solid #eee;
+    &:last-child {
+      border: none;
+    }
+  }
+}

@@ -66,7 +66,7 @@ async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
 
   res.status(200).json({
     code: API_STATUS_CODE.SUCCESS,
-    data: null,
+    data: saveResult.id,
     message: 'success'
   })
 }

@@ -211,7 +211,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.14.6":
+"@babel/runtime@^7.14.6", "@babel/runtime@^7.3.1":
   version "7.19.0"
   resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.19.0.tgz#22b11c037b094d27a8a2504ea4dcff00f50e2259"
   integrity sha512-eR8Lo9hnDS7tqkO7NsV+mKvCmv5boaXFSZ70DnfhcgiEne8hv9oCEd36Klw74EtizEqLsy4YnW8UWwpBVolHZA==
@@ -621,6 +621,13 @@
   version "18.0.6"
   resolved "https://registry.npmmirror.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
   integrity sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-syntax-highlighter@^15.5.5":
+  version "15.5.5"
+  resolved "https://registry.npmmirror.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-15.5.5.tgz#4d3b51f8956195f1f63360ff03f8822c5d74c516"
+  integrity sha512-QH3JZQXa2usAvJvSsdSUJ4Yu4j8ReuZpgRrEW+XP+Rmosbn425YshW9iGEb/pAARm8496axHhHUPRH3UmTiB6A==
   dependencies:
     "@types/react" "*"
 
@@ -1671,6 +1678,13 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
+fault@^1.0.0:
+  version "1.0.4"
+  resolved "https://registry.npmmirror.com/fault/-/fault-1.0.4.tgz#eafcfc0a6d214fc94601e170df29954a4f842f13"
+  integrity sha512-CJ0HCB5tL5fYTEA7ToAq5+kTwd++Borf1/bifxd9iT70QcXr4MRrO3Llf8Ifs70q+SJcGHFtnIE/Nw6giCtECA==
+  dependencies:
+    format "^0.2.0"
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmmirror.com/file-entry-cache/-/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
@@ -1736,6 +1750,11 @@ form-data@^4.0.0:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
+
+format@^0.2.0:
+  version "0.2.2"
+  resolved "https://registry.npmmirror.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
+  integrity sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -2062,7 +2081,7 @@ hastscript@^7.0.0:
     property-information "^6.0.0"
     space-separated-tokens "^2.0.0"
 
-highlight.js@^10.7.1:
+highlight.js@^10.4.1, highlight.js@^10.7.1, highlight.js@~10.7.0:
   version "10.7.3"
   resolved "https://registry.npmmirror.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
@@ -2424,10 +2443,20 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash.escape@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
+  integrity sha512-nXEOnb/jK9g0DYMr1/Xvq6l5xMD7GDG55+GSYIYmS0G4tBk/hURD4JR9WCavs04t33WmJx9kCyp9vJ+mr4BOUw==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.npmmirror.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.unescape@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
+  integrity sha512-DhhGRshNS1aX6s5YdBE3njCCouPgnG29ebyHvImlZzXZf2SHgt+J08DHgytTPnpywNbO1Y8mNUFyQuIDBq2JZg==
 
 lodash@^4.17.21:
   version "4.17.21"
@@ -2450,6 +2479,14 @@ loose-envify@^1.1.0, loose-envify@^1.4.0:
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
+
+lowlight@^1.17.0:
+  version "1.20.0"
+  resolved "https://registry.npmmirror.com/lowlight/-/lowlight-1.20.0.tgz#ddb197d33462ad0d93bf19d17b6c301aa3941888"
+  integrity sha512-8Ktj+prEb1RoCPkEOrPMYUN/nCggB7qAWe3a7OpMjWQkh3l2RD5wKRQ+o8Q8YuI9RG/xs95waaI/E6ym/7NsTw==
+  dependencies:
+    fault "^1.0.0"
+    highlight.js "~10.7.0"
 
 lru-cache@^4.1.3:
   version "4.1.5"
@@ -2477,6 +2514,25 @@ markdown-table@^3.0.0:
   version "3.0.2"
   resolved "https://registry.npmmirror.com/markdown-table/-/markdown-table-3.0.2.tgz#9b59eb2c1b22fe71954a65ff512887065a7bb57c"
   integrity sha512-y8j3a5/DkJCmS5x4dMCQL+OR0+2EAq3DOtio1COSHsmW2BGXnNCK3v12hJt1LrUz5iZH5g0LmuYOjDdI+czghA==
+
+markdown-to-jsx@^7.1.7:
+  version "7.1.7"
+  resolved "https://registry.npmmirror.com/markdown-to-jsx/-/markdown-to-jsx-7.1.7.tgz#a5f22102fb12241c8cea1ca6a4050bb76b23a25d"
+  integrity sha512-VI3TyyHlGkO8uFle0IOibzpO1c1iJDcXcS/zBrQrXQQvJ2tpdwVzVZ7XdKsyRz1NdRmre4dqQkMZzUHaKIG/1w==
+
+markdown-to-txt@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/markdown-to-txt/-/markdown-to-txt-2.0.1.tgz#bfd6233a2635443cc24900a158b60c6af36ce9c5"
+  integrity sha512-Hsj7KTN8k1gutlLum3vosHwVZGnv8/cbYKWVkUyo/D1rzOYddbDesILebRfOsaVfjIBJank/AVOySBlHAYqfZw==
+  dependencies:
+    lodash.escape "^4.0.1"
+    lodash.unescape "^4.0.1"
+    marked "^4.0.14"
+
+marked@^4.0.14:
+  version "4.1.0"
+  resolved "https://registry.npmmirror.com/marked/-/marked-4.1.0.tgz#3fc6e7485f21c1ca5d6ec4a39de820e146954796"
+  integrity sha512-+Z6KDjSPa6/723PQYyc1axYZpYYpDnECDaU6hkaf5gqBieBkMKYReL5hteF2QizhlMbgbo8umXl/clZ67+GlsA==
 
 md5@^2.3.0:
   version "2.3.0"
@@ -3251,6 +3307,11 @@ prelude-ls@^1.2.1:
   resolved "https://registry.npmmirror.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
+prismjs@^1.27.0:
+  version "1.29.0"
+  resolved "https://registry.npmmirror.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
+  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
+
 prismjs@~1.27.0:
   version "1.27.0"
   resolved "https://registry.npmmirror.com/prismjs/-/prismjs-1.27.0.tgz#bb6ee3138a0b438a3653dd4d6ce0cc6510a45057"
@@ -3709,6 +3770,17 @@ react-markdown@7.0.1:
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
+react-syntax-highlighter@^15.5.0:
+  version "15.5.0"
+  resolved "https://registry.npmmirror.com/react-syntax-highlighter/-/react-syntax-highlighter-15.5.0.tgz#4b3eccc2325fa2ec8eff1e2d6c18fa4a9e07ab20"
+  integrity sha512-+zq2myprEnQmH5yw6Gqc8lD55QHnpKaU8TOcFeC/Lg/MQSs8UknEA0JC4nTZGFAXC2J2Hyj/ijJ7NlabyPi2gg==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    highlight.js "^10.4.1"
+    lowlight "^1.17.0"
+    prismjs "^1.27.0"
+    refractor "^3.6.0"
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmmirror.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -3728,7 +3800,7 @@ reflect-metadata@^0.1.13:
   resolved "https://registry.npmmirror.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
-refractor@^3.4.0:
+refractor@^3.4.0, refractor@^3.6.0:
   version "3.6.0"
   resolved "https://registry.npmmirror.com/refractor/-/refractor-3.6.0.tgz#ac318f5a0715ead790fcfb0c71f4dd83d977935a"
   integrity sha512-MY9W41IOWxxk31o+YvFCNyNzdkc9M20NoZK5vq6jkv4I/uh2zkWcfudj0Q1fovjUQJrNewS9NMzeTtqPf+n5EA==

@@ -40,7 +40,7 @@ MyApp.getInitialProps = ({ ctx }:{
     initialValue: {
       user: {
         userInfo: {
-          id: userId,
+          id: Number(userId),
           nickname,
           avatar,
         }

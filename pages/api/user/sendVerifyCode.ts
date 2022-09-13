@@ -5,7 +5,7 @@ import { encode } from 'js-base64'
 import request from 'service/fetch'
 import websiteConfig from 'website.config.json'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { ironOptions } from 'config'
+import { ironSessionOptions } from 'config'
 import { ISession } from '..'
 
 type Data = {
@@ -60,4 +60,4 @@ async function sendVerifyCode (
   }
 }
 
-export default withIronSessionApiRoute(sendVerifyCode, ironOptions)
+export default withIronSessionApiRoute(sendVerifyCode, ironSessionOptions)
