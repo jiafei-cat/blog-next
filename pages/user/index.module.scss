@@ -1,0 +1,96 @@
+.personalPage {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  min-height: 400px;
+  .userInfo {
+    padding: 20px;
+    background: #fff;
+    display: flex;
+    width: calc(1190px - 410px);
+    .avatar {
+      width: 80px;
+      height: 80px;
+    }
+    .userInfoDetail {
+      margin-left: 40px;
+      display: flex;
+      flex-direction: column;
+      span {
+        margin-bottom: 8px;
+        &:first-child {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        &:nth-child(2) {
+          display: flex;
+          color: #72777b;
+          align-items: center;
+          span {
+            font-size: 18px;
+            margin-right: 6px;
+          }
+        }
+      }
+    }
+    button {
+      margin-left: auto;
+      margin-top: auto;
+    }
+  }
+  .articleCount {
+    padding: 20px;
+    width: 400px;
+    background: #fff;
+    margin-left: 10px;
+    h3 {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      span {
+        color: #1890ff;
+        margin-right: 6px;
+        font-size: 18px;
+      }
+      em {
+        font-style: normal;
+        margin-right: 8px;
+      }
+      i {
+        font-style: normal;
+        font-weight: bold;
+      }
+    }
+  }
+  .articleList {
+    margin-top: 10px;
+    background: #fff;
+    flex: 0 0 100%;
+  }
+  :global(.ant-empty) {
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3D(-50%, -50%, 0);
+  }
+}
+
+.profileContainer {
+  padding: 20px;
+  margin-top: 20px;
+  background: #fff;
+  h3 {
+    margin-bottom: 20px;
+  }
+  .content {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
