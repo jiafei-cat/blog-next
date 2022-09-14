@@ -15,7 +15,7 @@ const ListItem: NextPage<IArticle> = (item) => {
             <span>|</span>
             <span>{formatDistanceToNow(new Date(item.update_time), {
               locale: zhLocale
-            })}</span>
+            })}前</span>
           </div>
           <div className={styles.articleContent}>
             <h3>{item.title}</h3>

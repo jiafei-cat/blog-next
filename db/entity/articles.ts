@@ -1,7 +1,12 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm'
+import { Comments } from './comments'
 import { User } from './user'
 
-@Entity('articles')
+@Entity('articles', {
+  orderBy: {
+    update_time: "DESC",
+  }
+})
 export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   readonly id!: number
@@ -29,4 +34,7 @@ export class Articles extends BaseEntity {
   })
   @JoinColumn({ name: 'user_id'})
   user!: User
+
+  @OneToMany(() => Comments, (comments) => comments.article)
+  comments!: Comments[]
 }

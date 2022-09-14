@@ -112,7 +112,7 @@ async function registerUser({
 }) {
   const user = new User()
   user.nickname = `用户_${Math.ceil(Math.random() * 10000)}`
-  user.avatar = '/images/avatar.jpeg'
+  user.avatar = `https://i.pravatar.cc/300?img=${Math.ceil(Math.random() * 1000)}`
   user.job = '暂无'
   user.introduce = '暂无'
 

@@ -1,4 +1,5 @@
-import { Avatar } from 'antd'
+import React from 'react'
+import { Avatar, Input, Button, message } from 'antd'
 import getConnection from 'db'
 import { Articles } from 'db/entity'
 import { NextApiRequest, NextApiResponse, NextPage } from 'next'
@@ -6,11 +7,18 @@ import { IArticle } from 'pages/api'
 import styles from './index.module.scss'
 import MarkDown from 'react-markdown'
 import Head from 'next/head'
-import { format } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
+import zhLocale from 'date-fns/locale/zh-CN'
 import Link from 'next/link'
 import { useStore } from 'store'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import platform from 'platform'
+import { useRouter } from 'next/router'
+import request from 'service/fetch'
+import { API_STATUS_CODE } from 'pages/enum'
 
+const { TextArea } = Input
+const { useState } = React
 
 export async function getServerSideProps(req: NextApiRequest & {
   params: {
@@ -32,7 +40,12 @@ export async function getServerSideProps(req: NextApiRequest & {
     where: {
       id: Number(articleId)
     },
-    relations: ['user']
+    order: {
+      comments: {
+        create_time: 'DESC',
+      }
+    },
+    relations: ['user', 'comments', 'comments.user']
   })
   
   if (!articleDetail) {
@@ -46,7 +59,6 @@ export async function getServerSideProps(req: NextApiRequest & {
   }
 
   articleRepository.save(articleDetail)
-
   return {
     props: {
       articleDetail: JSON.parse(JSON.stringify(articleDetail))
@@ -63,10 +75,34 @@ const ArticleDetail: NextPage<{
 }> = ({
   articleDetail
 }) => {
+  const [commentList, setCommentList] = useState(articleDetail?.comments)
+  const router = useRouter()
   const store = useStore()
-  const userId = store.user?.userInfo?.id
-  console.log(articleDetail)
-  console.log(userId)
+  const userInfo = store.user.userInfo
+  const userId = userInfo?.id
+  const [comment, setComment] = useState('')
+  const articleId = router.query?.id
+
+  const handleComment = async () => {
+    if (!articleId) {
+      return
+    }
+
+    const result = await request.post('/api/comment/public', {
+      content: comment?.trim(),
+      id: articleId,
+    })
+
+    if (result.code !== API_STATUS_CODE.SUCCESS) {
+      message.error(result.message)
+      return
+    }
+
+    message.success('发表成功!')
+    setComment('')
+    setCommentList(state => [result.data].concat(state))
+  }
+
   return (
     <section className={styles.articleContainer}>
       <Head>
@@ -106,6 +142,54 @@ const ArticleDetail: NextPage<{
             )
           }}}>{articleDetail.content}</MarkDown>
         </div>
+      </div>
+      <div className={styles.commentList}>
+        <div className={styles.commentOperation}>
+          <h4>评论</h4>
+          <div className={styles.operation}>
+            <Avatar  className={styles.avatar} src={userInfo?.avatar}></Avatar>
+            <TextArea
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              onKeyDown={e => {
+                if(e.metaKey && e.keyCode === 13) {
+                  handleComment()
+                }
+              }}
+              className={styles.textArea}
+              placeholder={(platform.os?.family?.indexOf('OS') || - 1) < 0 ? '输入评论（Enter换行，⌘ + Enter发送）' : '输入评论（Enter换行，Ctrl + Enter发送）'}
+              autoSize={{ minRows: 4, maxRows: 6 }}
+            />
+          </div>
+          <div className={styles.footer}>
+            <Button type='primary' onClick={handleComment}>发表评论</Button>
+          </div>
+        </div>
+        {
+          !!commentList?.length && (
+            <div className={styles.commentContent}>
+              <h4>热门评论</h4>
+              <ul>
+                {
+                  commentList?.map(item => (
+                    <li key={item.id}>
+                      <p className={styles.userInfo}>
+                        <Avatar src={item.user.avatar} />
+                        <span>{item.user.nickname}</span>
+                        <span>{formatDistanceToNow(new Date(item.create_time), {
+                          locale: zhLocale
+                        })}前</span>
+                      </p>
+                      <p className={styles.content}>
+                        {item.content}
+                      </p>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          )
+        }
       </div>
     </section>
   )

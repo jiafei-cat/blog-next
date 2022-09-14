@@ -17,4 +17,12 @@ export interface IArticle {
   id: number
   is_delete: number
   views: number
+  comments: IComment[]
+}
+
+export interface IComment {
+  content: string
+  create_time: Date
+  id: number
+  user: IUserInfo
 }

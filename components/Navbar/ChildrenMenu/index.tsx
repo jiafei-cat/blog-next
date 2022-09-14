@@ -46,9 +46,8 @@ const ChildrenMenu = () => {
       message.error(result.message)
     } else {
       store.user.setUserInfo({})
-      message.success('退出成功!', () => {
-        window.location.reload()
-      })
+      message.success('退出成功!')
+      window.location.reload()
     }
   }
 

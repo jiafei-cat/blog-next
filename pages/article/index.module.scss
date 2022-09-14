@@ -1,8 +1,10 @@
 .articleContainer {
   margin-top: 20px;
+  margin-bottom: 20px;
   .articleContent {
     padding: 20px;
     background: #fff;
+    border-radius: 4px;
     h2 {
       font-size: 28px;
     }
@@ -36,6 +38,68 @@
     }
   }
   .commentList {
-
+    padding: 30px;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 4px;
+    .commentOperation {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      h4 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .operation {
+        display: flex;
+      }
+      .avatar {
+        width: 38px;
+        height: 38px;
+      }
+      .textArea {
+        margin-left: 20px;
+        border: none;
+        background: #f2f3f5;
+        &:focus {
+          background: #fff;
+        }
+      }
+      .footer {
+        margin-top: 10px;
+        margin-left: auto;
+      }
+    }
+  }
+  .commentContent {
+    padding: 10px 0;
+    h4 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    .userInfo {
+      display: flex;
+      align-items: center;
+      span {
+        margin-right: 10px;
+        &:last-child {
+          color: #8a919f;
+          margin-left: auto;
+        }
+      }
+    }
+    .content {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      margin-left: 40px;
+      -webkit-line-clamp: 6;
+    }
   }
 }
