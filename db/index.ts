@@ -9,8 +9,13 @@ const {
   DATABASE_PASSWORD: password,
   DATABASE_DATABASE: database,
 } = process.env
-
+let db:DataSource | null = null
 async function getConnection () {
+  console.log(!!db)
+  if (db) {
+    return db
+  }
+
   const dataSource = new DataSource({
     type: type as 'mysql',
     host,
@@ -23,7 +28,7 @@ async function getConnection () {
     logging: false,
   })
   
-  await dataSource.initialize()
+  db = await dataSource.initialize()
   return dataSource
 }
 

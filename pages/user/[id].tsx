@@ -12,6 +12,7 @@ import { CountUp } from 'use-count-up'
 import ListItem from 'components/ListItem'
 import { useStore } from 'store'
 import Head from 'next/head'
+
 export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
   const curUserId = req?.query?.id
   if (!curUserId) {
