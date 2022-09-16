@@ -1,6 +1,6 @@
 import { ironSessionOptions } from 'config'
 import getConnection from 'db'
-import { Articles, User } from 'db/entity'
+import { Articles, Tag, User } from 'db/entity'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { API_STATUS_CODE } from 'pages/enum'
@@ -8,7 +8,7 @@ import { ISession } from '..'
 
 async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
   const session:ISession = req.session
-  const { title, content } = req.body
+  const { title, content, tagsList } = req.body
 
   if (!session?.userId) {
     res.status(200).json({
@@ -30,6 +30,7 @@ async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
   const connection = await getConnection()
   const userRepository = connection.getRepository(User)
   const articleRepository = connection.getRepository(Articles)
+  const tagsRepository = connection.getRepository(Tag)
   const user = await userRepository.findOne({
     where: {
       id: session.userId
@@ -54,7 +55,19 @@ async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
   article.views = 0
   article.user = user
 
+  const targetTagsList = await tagsRepository.find({
+    where: (tagsList as string[]).map(i => ({ id: Number(i) }))
+  })
+
+  if (targetTagsList?.length) {
+    article.tags = targetTagsList?.map(i => {
+      i.article_count += 1
+      return i
+    }) || []
+  }
+
   const saveResult = await articleRepository.save(article)
+
   if (!saveResult?.id) {
     res.status(200).json({
       code: API_STATUS_CODE.UNKNOW_ERROR,

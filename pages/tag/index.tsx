@@ -37,7 +37,7 @@ const Tag: NextPage = () => {
       </Head>
       <section>
         <Tabs type="card" centered defaultActiveKey="1">
-          <Tabs.TabPane tab="标签列表" key="1">
+          <Tabs.TabPane tab="全部标签" key="1">
             {
               tagsList.map(item => (
                 <TagItem {...item} key={item.id} onChange={getTagsList}></TagItem>

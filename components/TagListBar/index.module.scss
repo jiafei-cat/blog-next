@@ -1,0 +1,18 @@
+.tagListBarContainer {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba($color: #000000, $alpha: .1);
+  ul {
+    width: 1190px;
+    margin: 0 auto;
+    display: flex;
+    padding: 10px 0;
+    li {
+      margin-right: 20px;
+      cursor: pointer;
+      color: #999;
+      &:hover {
+        color: #1890ff;
+      }
+    }
+  }
+}

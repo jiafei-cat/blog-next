@@ -1,3 +1,4 @@
+import React from 'react'
 import { NextPage } from 'next'
 import { IArticle } from 'pages/api'
 import styles from './index.module.scss'
@@ -6,16 +7,26 @@ import zhLocale from 'date-fns/locale/zh-CN'
 import { formatDistanceToNow } from 'date-fns'
 import { markdownToTxt } from 'markdown-to-txt'
 import Link from 'next/link'
+
+const { Fragment } = React
 const ListItem: NextPage<IArticle> = (item) => {
   return (
     <Link href={`/article/${item.id}`}>
       <section className={styles.listItem}>
           <div className={styles.userInfo}>
-            <span>{item.user?.nickname}</span>
+            <Link href={`/user/${item.user?.id}`}>{item.user?.nickname}</Link>
             <span>|</span>
             <span>{formatDistanceToNow(new Date(item.update_time), {
               locale: zhLocale
             })}前</span>
+            {
+              item.tags?.map(cItem => (
+                <Fragment key={cItem.id}>
+                  <span>·</span>
+                  <Link href={`/tag/${cItem.title}`}>{cItem.title}</Link>
+                </Fragment>
+              ))
+            }
           </div>
           <div className={styles.articleContent}>
             <h3>{item.title}</h3>

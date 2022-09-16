@@ -21,6 +21,7 @@ const TagItem: NextPage<ITag & {
   title,
   icon,
   follow_count,
+  article_count,
   isFollow,
   onChange,
 }) {
@@ -68,7 +69,7 @@ const TagItem: NextPage<ITag & {
         </em>
         <em>
           总计 
-          <i><CountUp isCounting end={100} duration={3.2} /></i>
+          <i><CountUp isCounting end={article_count} duration={3.2} /></i>
           篇文章
         </em>
       </span>

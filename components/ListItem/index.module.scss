@@ -7,13 +7,22 @@
     transform: translateY(-1px);
   }
   .userInfo {
+    display: flex;
+    align-items: center;
     span {
       font-size: 12px;
-      &:nth-child(2) {
-        margin: 0 10px;
+      color: #999;
+      &:nth-child(2n) {
+        margin: 0 6px;
       }
-      &:last-child {
-        color: #999;
+    }
+    a {
+      color: #999;
+      &:first-child {
+        color: #333;
+      }
+      &:hover {
+        color: #1890ff;
       }
     }
   }

@@ -1,10 +1,11 @@
 import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
+import React from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import styles from './index.module.scss'
-import { Checkbox, Row, Col, Input, Button, message } from 'antd'
+import { Checkbox, Row, Col, Input, Button, message, Select } from 'antd'
 import request from 'service/fetch'
 import { API_STATUS_CODE } from 'pages/enum'
 import { useStore } from 'store'
@@ -12,7 +13,9 @@ import { useRouter } from 'next/router'
 import { NextRequest, NextResponse } from 'next/server'
 import getConnection from 'db'
 import { Articles } from 'db/entity'
-import { IArticle } from 'pages/api'
+import { IArticle, ITag } from 'pages/api'
+import Head from 'next/head'
+const { Option } = Select
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
 
@@ -38,6 +41,7 @@ export const getServerSideProps = async (req: NextRequest & {
 
   const connection = await getConnection()
   const articleDetail = await connection.getRepository(Articles).findOne({
+    relations: ['tags'],
     where: {
       id: Number(id),
     }
@@ -58,6 +62,7 @@ export const getServerSideProps = async (req: NextRequest & {
   }
 }
 
+const { useEffect } = React
 const EditorNew: NextPageWithPageConfig<{
   articleDetail: IArticle
 }> = ({
@@ -67,6 +72,8 @@ const EditorNew: NextPageWithPageConfig<{
   const { query } = router
 
   const { user: { userInfo: { id } } } = useStore()
+  const [tagsList, setTagsList] = useState<ITag[]>([])
+  const [selectTagsList, setSelectTagsList] = useState<string[]>(articleDetail?.tags?.map(i => String(i.id)))
   const [articleTitle, setArticleTitle] = useState(articleDetail?.title || '')
   const [articleContent, setArticleContent] = useState<string | undefined>(articleDetail?.content || '')
   const [isSyncScroll, setSyncScroll] = useState(true)
@@ -83,6 +90,7 @@ const EditorNew: NextPageWithPageConfig<{
     const params = {
       title,
       content,
+      tagsList: selectTagsList,
     }
   
     const result = await (isNewArticle ? handlePublicArticle(params) : handleEditArticle(params))
@@ -108,11 +116,50 @@ const EditorNew: NextPageWithPageConfig<{
     })
   }
 
+  const handleGetTagList = async () => {
+    const result = await request.get('/api/tag/get')
+
+    setTagsList(result?.data || [])
+  }
+
+  const handleChange = (idList: string[]) => {
+    if (idList.length > 3) {
+      message.warning('最多3个标签')
+      return
+    }
+    setSelectTagsList(idList)
+  }
+
+  useEffect(() => {
+    handleGetTagList()
+  }, [])
+
   return (
     <section className={styles.editorPage}>
+      <Head>
+        <title>{isNewArticle ? '发布' : '编辑'}文章</title>
+      </Head>
       <Row align='middle' justify='space-between' className={styles.operation}>
-        <Col span={22}>
+        <Col span={14}>
           <Input placeholder='输入文章标题...' value={articleTitle} onChange={e => setArticleTitle(e.target.value || '')}></Input>
+        </Col>
+        <Col span={6}>
+          <Select
+            mode="multiple"
+            placeholder="选择文章标签"
+            onChange={handleChange}
+            style={{ width: '100%' }}
+            maxTagCount={3}
+            value={selectTagsList}
+          >
+            {
+              tagsList?.map(item => (
+                <Option key={item.id}>
+                  {item.title}
+                </Option>
+              ))
+            }
+          </Select>
         </Col>
         <Col>
           <Button type="primary" onClick={handlePublic}>{isNewArticle ? '发布' : '编辑'}</Button>
@@ -135,6 +182,9 @@ const EditorNew: NextPageWithPageConfig<{
   )
 }
 
-EditorNew.layout = false
+EditorNew.layout = {
+  header: false,
+  footer: false,
+}
 
 export default EditorNew

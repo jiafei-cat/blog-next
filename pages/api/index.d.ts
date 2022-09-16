@@ -18,6 +18,7 @@ export interface IArticle {
   is_delete: number
   views: number
   comments: IComment[]
+  tags: ITag[]
 }
 
 export interface IComment {

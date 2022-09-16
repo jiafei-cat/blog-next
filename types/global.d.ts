@@ -1,12 +1,14 @@
 import type { NextPage } from 'next'
 
-interface PageConfig {
+export interface PageConfig {
   /** 是否需要layout布局 */
-  layout?: boolean | {
-    /** 是否现实布局中的navbar */
-    header?: boolean
-    /** 是否现实布局中的footer */
-    footer?: boolean
+  layout: {
+    /** 是否显示布局中的navbar */
+    header: boolean
+    /** 是否显示布局中的footer */
+    footer: boolean
+    /** 是否现实布局中的tagListBar */
+    tagListBar: boolean
   }
 }
 

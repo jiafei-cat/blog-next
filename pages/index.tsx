@@ -11,7 +11,7 @@ import styles from './index.module.scss'
 export async function getServerSideProps () {
   const connection = await getConnection()
   const articles = await connection.getRepository(Articles).find({
-    relations: ['user']
+    relations: ['user', 'tags']
   })
   return {
     props: {
@@ -20,7 +20,7 @@ export async function getServerSideProps () {
   }
 }
 
-const Home: NextPage<{
+const Home: NextPageWithPageConfig<{
   articles: IArticle[]
 }> = ({
   articles,
@@ -41,6 +41,10 @@ const Home: NextPage<{
       </section>
     </div>
   )
+}
+
+Home.layout = {
+  tagListBar: true
 }
 
 export default Home

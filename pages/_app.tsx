@@ -11,22 +11,13 @@ interface IProps extends AppProps {
 }
 
 function MyApp({ initialValue, Component, pageProps }: IProps) {
-  let Container = null
-
-  if (Component?.layout === false) {
-    Container = (<Component {...pageProps} />)
-  } else {
-    Container = (
-      <Layout {...Component?.layout}>
-        <Component {...pageProps} />
-      </Layout>
-    )
-  }
-
-
   return (
     <StoreProvider initialValue={initialValue} >
-      {Container}
+      <Layout config={{
+        layout: Component?.layout
+      }}>
+        <Component {...pageProps} />
+      </Layout>
     </StoreProvider>
   )
 }
