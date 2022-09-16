@@ -1,0 +1,9 @@
+.tagsContainer {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  :global(.ant-tabs-tabpane) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

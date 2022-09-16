@@ -123,7 +123,7 @@ const EditorNew: NextPageWithPageConfig<{
 
       <Row justify='space-between' className={styles.footer}>
         <Col>
-          字数: {articleContent?.length || 0}
+          字数: {articleContent?.replace(/ /g, '')?.length || 0}
         </Col>
         <Col>
           <Checkbox checked={isSyncScroll} onChange={e => setSyncScroll(e.target.checked)}>

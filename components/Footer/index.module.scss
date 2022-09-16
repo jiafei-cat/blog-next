@@ -1,8 +1,17 @@
 .footer {
-  min-height: 200px;
-  background: #999;
+  height: 100px;
   .footerContent {
     width: 1190px;
     margin: 0 auto;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      li {
+        &:nth-child(2n) {
+          margin: 0 10px;
+        }
+      }
+    }
   }
 }

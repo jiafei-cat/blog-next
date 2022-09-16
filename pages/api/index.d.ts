@@ -26,3 +26,13 @@ export interface IComment {
   id: number
   user: IUserInfo
 }
+
+export interface ITag {
+  id: number
+  title: string
+  icon: string
+  follow_count: number
+  article_count: number
+  follow_count: number
+  isFollow: number
+}

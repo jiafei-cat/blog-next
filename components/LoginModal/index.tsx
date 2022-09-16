@@ -28,11 +28,11 @@ const LoginModal: NextPage<{
       message.error(result?.message)
       return
     }
-    console.log(result)
 
     store.user.setUserInfo(result.data as IUserInfo)
     onClose && onClose()
     message.success('登录成功!')
+    window.location.reload()
   }
 
   const handleGetVerifyCode = async () => {

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-import { User, UserAuth, Articles, Comments } from './entity'
+import { User, UserAuth, Articles, Comments, Tag } from './entity'
 const {
   DATABASE_TYPE: type,
   DATABASE_HOST: host,
@@ -23,7 +23,7 @@ async function getConnection () {
     username,
     password,
     database,
-    entities: [User, UserAuth, Articles, Comments],
+    entities: [User, UserAuth, Articles, Comments, Tag],
     synchronize: false,
     logging: false,
   })

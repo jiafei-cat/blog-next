@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 import { IArticle } from 'pages/api'
 import { IUserInfo } from "store/userStore"
 import styles from './index.module.scss'
-import { EyeOutlined, ProfileOutlined } from '@ant-design/icons'
+import { EyeOutlined, ProfileOutlined, EditOutlined } from '@ant-design/icons'
 import { CountUp } from 'use-count-up'
 import ListItem from 'components/ListItem'
 import { useStore } from 'store'
@@ -103,6 +103,16 @@ const UserIndex: NextPage<{
       <section className={styles.articleCount}>
         <h3>个人成就</h3>
         <ul>
+          <li>
+            <EditOutlined />
+            <em>
+              共创作 
+            </em>
+            <i>
+              <CountUp isCounting end={article?.length || 0} duration={3.2} />
+            </i>
+            <em>文章</em>
+          </li>
           <li>
             <EyeOutlined />
             <em>
