@@ -3,10 +3,12 @@ import React from 'react'
 import request from 'service/fetch'
 import styles from './index.module.scss'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const { useState, useEffect } = React
 const TagListBar = () => {
   const [tagList, setTagList] = useState<ITag[]>([])
+  const router = useRouter()
 
   const handleGetTagList = async () => {
     const result = await request.get('/api/tag/get')
@@ -20,12 +22,13 @@ const TagListBar = () => {
   return (
     <section className={styles.tagListBarContainer}>
       <ul>
-        <li>全部</li>
+        <li onClick={() => router.push('/')}>全部</li>
         {
           tagList.map(item => (
-            <li key={item.id}>{item.title}</li>
+            <li key={item.id} onClick={() => router.push(`/${item.title}`)}>{item.title}</li>
           ))
         }
+        <li onClick={() => router.push('/tag')}>标签管理</li>
       </ul>
     </section>
   )

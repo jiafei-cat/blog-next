@@ -7,6 +7,7 @@ import Image from 'next/image'
 import ListItem from 'components/ListItem'
 import { IArticle } from './api'
 import styles from './index.module.scss'
+import MainList from 'components/MainList'
 
 export async function getServerSideProps () {
   const connection = await getConnection()
@@ -32,13 +33,7 @@ const Home: NextPageWithPageConfig<{
         <meta name="description" content="Blog - nextJs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className={styles.content}>
-        {
-          articles?.map(item => (
-            <ListItem {...item} key={item.id} />
-          ))
-        }
-      </section>
+      <MainList articles={articles} />
     </div>
   )
 }
