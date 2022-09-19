@@ -23,6 +23,9 @@
       em {
         font-style: normal;
         margin: 0 10px;
+        &:first-child {
+          cursor: pointer;
+        }
         &:last-child {
           color: #999;
           display: flex;
@@ -87,6 +90,9 @@
       align-items: center;
       span {
         margin-right: 10px;
+        &:nth-child(2) {
+          cursor: pointer;
+        }
         &:last-child {
           color: #8a919f;
           margin-left: auto;

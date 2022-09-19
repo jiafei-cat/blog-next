@@ -36,4 +36,5 @@ export interface ITag {
   article_count: number
   follow_count: number
   isFollow: number
+  key: string
 }

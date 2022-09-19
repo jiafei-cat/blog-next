@@ -9,10 +9,15 @@ const { useState, useEffect } = React
 const TagListBar = () => {
   const [tagList, setTagList] = useState<ITag[]>([])
   const router = useRouter()
+  const { tag } = router.query
 
   const handleGetTagList = async () => {
     const result = await request.get('/api/tag/get')
-    setTagList(result?.data)
+    setTagList([
+      { title: '全部', id: 'all', key: '/' },
+      ...(result?.data || []),
+      { title: '标签管理', id: 'tag', key: 'tag' }
+    ])
   }
 
   useEffect(() => {
@@ -22,13 +27,15 @@ const TagListBar = () => {
   return (
     <section className={styles.tagListBarContainer}>
       <ul>
-        <li onClick={() => router.push('/')}>全部</li>
         {
           tagList.map(item => (
-            <li key={item.id} onClick={() => router.push(`/${item.title}`)}>{item.title}</li>
+            <li
+              key={item.id}
+              className={item.key === tag ? 'active' : ''}
+              onClick={() => router.push(`/${item.key || ''}`)}
+            >{item.title}</li>
           ))
         }
-        <li onClick={() => router.push('/tag')}>标签管理</li>
       </ul>
     </section>
   )

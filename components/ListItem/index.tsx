@@ -23,7 +23,7 @@ const ListItem: NextPage<IArticle> = (item) => {
               item.tags?.map(cItem => (
                 <Fragment key={cItem.id}>
                   <span>·</span>
-                  <Link href={`/tag/${cItem.title}`}>{cItem.title}</Link>
+                  <Link href={`/${cItem.key}`}>{cItem.title}</Link>
                 </Fragment>
               ))
             }

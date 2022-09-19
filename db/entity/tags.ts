@@ -12,6 +12,9 @@ export class Tag extends BaseEntity {
   title!: string
 
   @Column()
+  key!: string
+
+  @Column()
   icon!: string
   
   @Column()

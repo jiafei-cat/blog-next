@@ -113,7 +113,7 @@ const ArticleDetail: NextPage<{
         <div className={styles.userInfo}>
           <Avatar className={styles.avatar} src={articleDetail.user.avatar}></Avatar>
           <p>
-            <em>{articleDetail.user.nickname}</em>
+            <em onClick={() => router.push(`/user/${articleDetail.user.id}`)}>{articleDetail.user.nickname}</em>
             <em>
               {format(new Date(articleDetail.update_time), 'yyyy年MM月dd日 HH:mm:ss')} 
               &nbsp; 阅读 {articleDetail.views}
@@ -147,7 +147,7 @@ const ArticleDetail: NextPage<{
         <div className={styles.commentOperation}>
           <h4>评论</h4>
           <div className={styles.operation}>
-            <Avatar  className={styles.avatar} src={userInfo?.avatar}></Avatar>
+            <Avatar className={styles.avatar} src={userInfo?.avatar}></Avatar>
             <TextArea
               value={comment}
               onChange={e => setComment(e.target.value)}
@@ -175,7 +175,7 @@ const ArticleDetail: NextPage<{
                     <li key={item.id}>
                       <p className={styles.userInfo}>
                         <Avatar src={item.user.avatar} />
-                        <span>{item.user.nickname}</span>
+                        <span onClick={() => router.push(`/user/${item.user.id}`)}>{item.user.nickname}</span>
                         <span>{formatDistanceToNow(new Date(item.create_time), {
                           locale: zhLocale
                         })}前</span>

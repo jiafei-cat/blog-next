@@ -24,9 +24,7 @@ const Layout: NextPage<{
   children,
   config,
 }) => {
-  console.log(config)
   config = defaults(config, defaultLayoutConfig)
-  console.log(config)
 
   const { layout } = config
   const isNotNeedLayout = Object.keys(layout).every((key) => !layout[key as keyof PageConfig['layout']])
@@ -37,8 +35,10 @@ const Layout: NextPage<{
   return (
     <section className={styles.layout}>
       <Affix>
-        <Navbar />
-        {layout.tagListBar && <TagListBar />}
+        <div>
+          <Navbar />
+          {layout.tagListBar && <TagListBar />}
+        </div>
       </Affix>
       <Main>{children}</Main>
       <Footer />
