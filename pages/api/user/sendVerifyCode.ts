@@ -20,7 +20,11 @@ async function sendVerifyCode (
 ) {
   const session:ISession = req.session
   const { to } = req.body
-  const { accountSid, TOKEN, appId } = websiteConfig
+  const {
+    VERIFY_CODE_ACCOUNT_SID: accountSid,
+    VERIFY_CODE_TOKEN: TOKEN,
+    VERIFY_CODE_APPID: appId,
+  } = process.env
   const timeStamp = format(new Date(), 'yyyyMMddHHmmss')
   const SigParameter = md5(`${accountSid}${TOKEN}${timeStamp}`)
   const Authorization = encode(`${accountSid}:${timeStamp}`)
