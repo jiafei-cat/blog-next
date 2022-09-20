@@ -2,7 +2,7 @@ import { ironSessionOptions } from 'config'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { ISession } from '..'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import getConnection from 'db'
 import { User } from 'db/entity'
 

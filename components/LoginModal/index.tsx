@@ -5,7 +5,7 @@ import { Modal, Form, Button, Input, Row, Col, message } from 'antd'
 import CountDown from 'components/CountDown'
 import request from 'service/fetch'
 import { observer } from 'mobx-react-lite'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import userStore, { IUserInfo } from 'store/userStore'
 import { useStore } from 'store'
 

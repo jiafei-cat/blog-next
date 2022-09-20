@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 
 declare module 'axios' {
   interface IAxios<D = null> {

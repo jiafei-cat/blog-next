@@ -5,7 +5,7 @@ import { ISession } from '..'
 import getConnection from 'db'
 import { User, UserAuth } from 'db/entity'
 import { Repository } from 'typeorm'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { Cookie } from 'next-cookie'
 import { setCookie } from 'utils'
 

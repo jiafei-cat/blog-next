@@ -3,7 +3,7 @@ import getConnection from 'db'
 import { Articles, Tag, User } from 'db/entity'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { ISession } from '..'
 
 async function publicArticle(req: NextApiRequest, res: NextApiResponse) {

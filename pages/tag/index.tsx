@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import styles from './index.module.scss'
 import { message, Tabs } from 'antd'
 import request from 'service/fetch'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import TagItem from 'components/TagItem'
 import { ITag } from 'pages/api'
 import { useStore } from 'store'
@@ -40,7 +40,7 @@ const Tag: NextPage = () => {
           <Tabs.TabPane tab="全部标签" key="1">
             {
               tagsList.map(item => (
-                <TagItem {...item} key={item.id} onChange={getTagsList}></TagItem>
+                <TagItem {...item} key={String(item.id)} onChange={getTagsList}></TagItem>
               ))
             }
           </Tabs.TabPane>
@@ -49,7 +49,7 @@ const Tag: NextPage = () => {
               <Tabs.TabPane tab="已关注标签" key="2">
                 {
                   tagsList.filter(i => i.isFollow === 1).map(item => (
-                    <TagItem {...item} key={item.id} onChange={getTagsList}></TagItem>
+                    <TagItem {...item} key={String(item.id)} onChange={getTagsList}></TagItem>
                   ))
                 }
               </Tabs.TabPane>

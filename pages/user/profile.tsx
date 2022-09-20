@@ -4,7 +4,7 @@ import { Form, Input, Button, message } from 'antd'
 import Head from 'next/head'
 import request from 'service/fetch'
 import { IUserInfo } from 'store/userStore'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { useRouter } from 'next/router'
 import { useStore } from 'store'
 

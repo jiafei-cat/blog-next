@@ -15,7 +15,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import platform from 'platform'
 import { useRouter } from 'next/router'
 import request from 'service/fetch'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 
 const { TextArea } = Input
 const { useState } = React
@@ -133,7 +133,6 @@ const ArticleDetail: NextPage<{
                 children={String(children).replace(/\n$/, '')}
                 language={match[1]}
                 PreTag="div"
-                {...props}
               />
             ) : (
               <code className={className} {...props}>

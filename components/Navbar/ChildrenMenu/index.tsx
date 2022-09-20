@@ -5,7 +5,7 @@ import { useStore } from 'store'
 import { observer } from 'mobx-react-lite'
 import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import request from 'service/fetch'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { useRouter } from 'next/router'
 
 const items: MenuProps['items'] = [

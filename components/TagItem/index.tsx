@@ -3,7 +3,7 @@ import { createFromIconfontCN } from '@ant-design/icons'
 import { NextPage } from 'next'
 import { Button, message, Modal } from 'antd'
 import request from 'service/fetch'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { CountUp } from 'use-count-up'
 import { ITag } from 'pages/api'
 const { confirm } = Modal

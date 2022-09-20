@@ -1,7 +1,7 @@
 import { ironSessionOptions } from 'config'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { API_STATUS_CODE } from 'pages/enum'
+import { API_STATUS_CODE } from 'types/enum'
 import { clearCookie } from 'utils'
 import { ISession } from '..'
 import { Cookie } from 'next-cookie'
