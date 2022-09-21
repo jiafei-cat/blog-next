@@ -5,6 +5,7 @@ import Layout from 'components/Layout'
 import { StoreProvider } from 'store'
 import { IUserInfo } from 'store/userStore'
 import { NextComponentType, NextPageContext } from 'next'
+
 interface IProps extends AppProps {
   Component:  NextComponentType<NextPageContext, any, {}> & NextPageWithPageConfig
   initialValue: IUserInfo
