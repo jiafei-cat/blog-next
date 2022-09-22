@@ -6,6 +6,7 @@ import request from 'service/fetch'
 import { API_STATUS_CODE } from 'types/enum'
 import { CountUp } from 'use-count-up'
 import { ITag } from 'pages/api'
+import { useRouter } from 'next/router'
 const { confirm } = Modal
 
 const IconFont = createFromIconfontCN({
@@ -14,18 +15,24 @@ const IconFont = createFromIconfontCN({
   ],
 })
 
-const TagItem: NextPage<ITag & {
+const TagItem: NextPage<{
+  data: ITag
   onChange: VoidFunction
 }> = function ({
-  id,
-  title,
-  icon,
-  follow_count,
-  article_count,
-  isFollow,
+  data,
   onChange,
 }) {
+  const {
+    id,
+    title,
+    icon,
+    follow_count,
+    article_count,
+    isFollow,
+    key,
+  } = data
 
+  const router = useRouter()
   const handleConfirmFollow = async (isFollow: number) => {
     if (isFollow === 1) {
       confirm({
@@ -58,7 +65,9 @@ const TagItem: NextPage<ITag & {
   }
 
   return (
-    <section className={styles.tagItemContainer}>
+    <section className={styles.tagItemContainer} onClick={() => {
+      router.push(`/${key}`)
+    }}>
       <IconFont type={icon} />
       <span className={styles.title}>{title}</span>
       <span className={styles.count}>
@@ -73,7 +82,10 @@ const TagItem: NextPage<ITag & {
           篇文章
         </em>
       </span>
-      <Button type='ghost' onClick={() => handleConfirmFollow(isFollow)}>{isFollow ? '取消关注' : '关注'}</Button>
+      <Button type='ghost' onClick={e => {
+        handleConfirmFollow(isFollow)
+        e.stopPropagation()
+      }}>{isFollow ? '取消关注' : '关注'}</Button>
     </section>
   )
 }

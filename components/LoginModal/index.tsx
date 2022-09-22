@@ -21,9 +21,13 @@ const LoginModal: NextPage<{
   const store = useStore()
 
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const handleLogin = async (values: any) => {
+    setSubmitLoading(true)
     const result = await request.post('/api/user/login', values)
+    setSubmitLoading(false)
+
     if (result?.code !== API_STATUS_CODE.SUCCESS) {
       message.error(result?.message)
       return
@@ -90,7 +94,7 @@ const LoginModal: NextPage<{
               </Col>
             </Row>
             <Col span="24">
-              <Button type="primary" htmlType="submit" style={{
+              <Button type="primary" loading={submitLoading} htmlType="submit" style={{
                 width: '100%',
                 height: 40
               }}>登录</Button>

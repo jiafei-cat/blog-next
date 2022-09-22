@@ -14,10 +14,13 @@ const Profile = () => {
   const router = useRouter()
   const store = useStore()
   const [userInfo, setUserInfo] = useState<IUserInfo>()
+  const [submitLoading, setSubmitLoading] = useState(false)
   const handleSubmit = async () => {
     const value = await form.validateFields()
-
+    setSubmitLoading(true)
     const result = await request.post('/api/user/update', value)
+    setSubmitLoading(false)
+
     if (result.code === API_STATUS_CODE.NOT_LOGIN) {
       message.error('请先登录!')
       return
@@ -34,6 +37,7 @@ const Profile = () => {
 
   const getUserInfo = async () => {
     const result = await request.get('/api/user/detail')
+
     if (result.code === API_STATUS_CODE.NOT_LOGIN) {
       message.error('请先登录!')
       return
@@ -77,7 +81,7 @@ const Profile = () => {
           }]}>
             <Input placeholder='自我介绍有助于大家认识你' />
           </Form.Item>
-          <Button type="primary" htmlType='submit'>提交修改</Button>
+          <Button type="primary" htmlType='submit' loading={submitLoading}>提交修改</Button>
         </Form>
       </section>
     </section>

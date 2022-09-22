@@ -26,6 +26,9 @@ async function getConnection () {
     entities: [User, UserAuth, Articles, Comments, Tag],
     synchronize: false,
     logging: false,
+    extra: {
+      max: 10
+    }
   })
   
   db = await dataSource.initialize()

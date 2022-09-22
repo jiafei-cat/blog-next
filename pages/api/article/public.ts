@@ -10,6 +10,15 @@ async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
   const session:ISession = req.session
   const { title, content, tagsList } = req.body
 
+  if (!tagsList?.length) {
+    res.status(200).json({
+      code: API_STATUS_CODE.MISS_REQUIRED_PARAMETERS,
+      data: null,
+      message: `请至少选择一个标签`
+    })
+    return
+  }
+
   if (!session?.userId) {
     res.status(200).json({
       code: API_STATUS_CODE.NOT_LOGIN,
@@ -56,7 +65,7 @@ async function publicArticle(req: NextApiRequest, res: NextApiResponse) {
   article.user = user
 
   const targetTagsList = await tagsRepository.find({
-    where: (tagsList as string[]).map(i => ({ id: Number(i) }))
+    where: (tagsList as string[])?.map(i => ({ id: Number(i) }))
   })
 
   if (targetTagsList?.length) {

@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import styles from './index.module.scss'
-import { message, Tabs } from 'antd'
+import { message, Tabs, Spin } from 'antd'
 import request from 'service/fetch'
 import { API_STATUS_CODE } from 'types/enum'
 import TagItem from 'components/TagItem'
@@ -15,14 +15,16 @@ const Tag: NextPage = () => {
   const store = useStore()
   const userInfo = store.user.userInfo
   const [tagsList, setTagsList] = useState<ITag[]>([])
-  
+  const [fetchLoading, setFetchLoading] = useState(false)
+
   const getTagsList = async () => {
+    setFetchLoading(true)
     const result = await request.get<ITag[]>('/api/tag/get')
+    setFetchLoading(false)
     if (result.code !== API_STATUS_CODE.SUCCESS) {
       message.error(result.message)
       return
     }
-    console.log(result)
     setTagsList(result.data || [])
   }
 
@@ -36,11 +38,16 @@ const Tag: NextPage = () => {
         <title>标签页</title>
       </Head>
       <section>
+        {fetchLoading && (
+          <section className={styles.loadingContainer}>
+            <Spin />
+          </section>
+        )}
         <Tabs type="card" centered defaultActiveKey="1">
           <Tabs.TabPane tab="全部标签" key="1">
             {
               tagsList.map(item => (
-                <TagItem {...item} key={String(item.id)} onChange={getTagsList}></TagItem>
+                <TagItem data={item} key={String(item.id)} onChange={getTagsList}></TagItem>
               ))
             }
           </Tabs.TabPane>
@@ -49,7 +56,7 @@ const Tag: NextPage = () => {
               <Tabs.TabPane tab="已关注标签" key="2">
                 {
                   tagsList.filter(i => i.isFollow === 1).map(item => (
-                    <TagItem {...item} key={String(item.id)} onChange={getTagsList}></TagItem>
+                    <TagItem data={item} key={String(item.id)} onChange={getTagsList}></TagItem>
                   ))
                 }
               </Tabs.TabPane>

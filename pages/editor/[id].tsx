@@ -77,6 +77,7 @@ const EditorNew: NextPageWithPageConfig<{
   const [articleTitle, setArticleTitle] = useState(articleDetail?.title || '')
   const [articleContent, setArticleContent] = useState<string | undefined>(articleDetail?.content || '')
   const [isSyncScroll, setSyncScroll] = useState(true)
+  const [submitLoading, setSubmitLoading] = useState(false)
   const isNewArticle = query?.id === 'new'
 
   const handlePublic = async () => {
@@ -92,9 +93,10 @@ const EditorNew: NextPageWithPageConfig<{
       content,
       tagsList: selectTagsList,
     }
-  
-    const result = await (isNewArticle ? handlePublicArticle(params) : handleEditArticle(params))
 
+    setSubmitLoading(true)
+    const result = await (isNewArticle ? handlePublicArticle(params) : handleEditArticle(params))
+    setSubmitLoading(false)
 
     if (result.code !== API_STATUS_CODE.SUCCESS) {
       message.error(result.message)
@@ -162,7 +164,7 @@ const EditorNew: NextPageWithPageConfig<{
           </Select>
         </Col>
         <Col>
-          <Button type="primary" onClick={handlePublic}>{isNewArticle ? '发布' : '编辑'}</Button>
+          <Button type="primary" loading={submitLoading} onClick={handlePublic}>{isNewArticle ? '发布' : '编辑'}</Button>
         </Col>
       </Row>
       
