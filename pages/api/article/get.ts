@@ -2,7 +2,6 @@ import getConnection from "db"
 import { Articles } from "db/entity"
 import { NextApiRequest, NextApiResponse } from "next"
 import { API_STATUS_CODE } from "types/enum"
-import { IsNull, Not } from "typeorm"
 
 const getArticleList  = async (req: NextApiRequest, res: NextApiResponse) => {
   const { tag } = req.query
@@ -11,15 +10,14 @@ const getArticleList  = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const query = tag ? {
     tags: {
-      key: tag
+      key: tag as string | undefined
     }
   } : {
+
   }
   const articles = await articleRepository.find({
     relations: ['user', 'tags'],
-    where: {
-      ...query
-    }
+    where: query
   })
 
   res.status(200).json({

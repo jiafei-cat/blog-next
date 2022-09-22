@@ -1,8 +1,5 @@
 import React from 'react'
 import styles from './index.module.scss'
-import getConnection from 'db'
-import { Articles } from 'db/entity'
-import { NextApiRequest, NextApiResponse } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { IArticle } from './api'
@@ -11,34 +8,6 @@ import { Empty } from 'antd'
 import request from 'service/fetch'
 import { API_STATUS_CODE } from 'types/enum'
 
-// export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
-//   const { query } = req
-//   const tag = query.tag as string | undefined
-
-//   const connection = await getConnection()
-//   const articleRepository = connection.getRepository(Articles)
-  
-//   const targetArticles = await articleRepository.find({
-//     relations: ['tags', 'user'],
-//     where: {
-//       tags: {
-//         key: tag
-//       }
-//     }
-//   })
-
-//   if (!targetArticles?.length) {
-//     return {
-//       props: {}
-//     }
-//   }
-
-//   return {
-//     props: {
-//       articles: JSON.parse(JSON.stringify(targetArticles)),
-//     }
-//   }
-// }
 const { useEffect, useState, useMemo } = React
 
 const TagPage: NextPageWithPageConfig = () => {
