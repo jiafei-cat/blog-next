@@ -5,12 +5,13 @@ import Footer from 'components/Footer'
 import Main from 'components/Main'
 import styles from './index.module.scss'
 import { PageConfig } from 'types/global'
-import { Affix } from 'antd'
+import { Affix, BackTop } from 'antd'
 import TagListBar from 'components/TagListBar'
 import defaults from 'defaults'
-import { useRouter } from 'next/router'
-import RotateLoader from 'react-spinners/RotateLoader'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import dynamic from 'next/dynamic'
+import ErrorBoundary from 'components/ErrorBoundary'
+
+const ProgressBar = dynamic(() => import('components/ProgressBar'), { ssr: false })
 
 const defaultLayoutConfig: PageConfig = {
   layout: {
@@ -21,6 +22,7 @@ const defaultLayoutConfig: PageConfig = {
 }
 
 const { useEffect } = React
+
 const Layout: NextPage<{
   children: React.ReactElement,
   config: PageConfig
@@ -28,22 +30,6 @@ const Layout: NextPage<{
   children,
   config,
 }) => {
-  const router = useRouter()
-  const [pageLoading, setPageLoading] = React.useState<boolean>(false)
-
-  useEffect(() => {
-    const handleStart = () => { setPageLoading(true) }
-    const handleComplete = () => { setPageLoading(false) }
-
-    router.events.on('routeChangeStart', handleStart)
-    router.events.on('routeChangeComplete', handleComplete)
-    router.events.on('routeChangeError', handleComplete)
-  }, [router])
-
-  useEffect(() => {
-    pageLoading ? disableBodyScroll(document.body) : enableBodyScroll(document.body)
-  }, [pageLoading])
-
   config = defaults(config, defaultLayoutConfig)
 
   const { layout } = config
@@ -53,21 +39,20 @@ const Layout: NextPage<{
   }
 
   return (
-    <section className={styles.layout}>
-      {pageLoading && (
-        <div className={styles.loading}>
-          <RotateLoader color="#1890ff" />
-        </div>
-      )}
-      <Affix>
-        <div>
-          <Navbar />
-          {layout.tagListBar && <TagListBar />}
-        </div>
-      </Affix>
-      <Main>{children}</Main>
-      <Footer />
-    </section>
+    <ErrorBoundary>
+      <section className={styles.layout}>
+          <ProgressBar />
+          <Affix>
+            <div>
+              <Navbar />
+              {layout.tagListBar && <TagListBar />}
+            </div>
+          </Affix>
+          <Main>{children}</Main>
+          <Footer />
+          {layout.backTop && <BackTop />}
+      </section>
+    </ErrorBoundary>
   )
 }
 

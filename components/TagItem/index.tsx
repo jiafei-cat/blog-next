@@ -53,7 +53,7 @@ const TagItem: NextPage<ITag & {
       message.error(result.message)
       return
     }
-    message.success('关注成功')
+    message.success(type === 'follow' ? '关注成功' : '取注成功')
     onChange && onChange()
   }
 

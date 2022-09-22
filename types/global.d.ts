@@ -7,8 +7,10 @@ export interface PageConfig {
     header?: boolean
     /** 是否显示布局中的footer */
     footer?: boolean
-    /** 是否现实布局中的tagListBar */
+    /** 是否显示布局中的tagListBar */
     tagListBar?: boolean
+    /** 是否显示返回顶部按钮 */
+    backTop?: boolean
   }
 }
 

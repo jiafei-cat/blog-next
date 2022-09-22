@@ -10,6 +10,7 @@ import Link from 'next/link'
 
 const { Fragment } = React
 const ListItem: NextPage<IArticle> = (item) => {
+
   return (
     <Link href={`/article/${item.id}`}>
       <section className={styles.listItem}>

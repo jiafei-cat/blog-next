@@ -8,24 +8,36 @@ import ListItem from 'components/ListItem'
 import { IArticle } from './api'
 import styles from './index.module.scss'
 import MainList from 'components/MainList'
+import request from 'service/fetch'
+import { API_STATUS_CODE } from 'types/enum'
 
-export async function getServerSideProps () {
-  const connection = await getConnection()
-  const articles = await connection.getRepository(Articles).find({
-    relations: ['user', 'tags']
-  })
-  return {
-    props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+// export async function getServerSideProps () {
+//   const connection = await getConnection()
+//   const articles = await connection.getRepository(Articles).find({
+//     relations: ['user', 'tags']
+//   })
+//   return {
+//     props: {
+//       articles: JSON.parse(JSON.stringify(articles)),
+//     }
+//   }
+// }
+
+const { useEffect, useState } = React
+const Home: NextPageWithPageConfig = () => {
+  const [articles, setArticles] = useState<IArticle[]>(Array.from({ length: 8 }))
+
+  const getArticleList = async () => {
+    const result = await request.get<IArticle[]>('/api/article/get')
+    if (result.code === API_STATUS_CODE.SUCCESS) {
+      setArticles(result.data)
     }
   }
-}
 
-const Home: NextPageWithPageConfig<{
-  articles: IArticle[]
-}> = ({
-  articles,
-}) => {
+  useEffect(() => {
+    getArticleList()
+  }, [])
+
   return (
     <div>
       <Head>
@@ -39,7 +51,8 @@ const Home: NextPageWithPageConfig<{
 }
 
 Home.layout = {
-  tagListBar: true
+  tagListBar: true,
+  backTop: true,
 }
 
 export default Home
