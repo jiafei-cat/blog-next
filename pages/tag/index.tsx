@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import styles from './index.module.scss'
 import { message, Tabs, Spin } from 'antd'
 import request from 'service/fetch'
@@ -10,7 +10,16 @@ import { ITag } from 'pages/api'
 import { useStore } from 'store'
 import { observer } from 'mobx-react-lite'
 
+export const getStaticProps: GetStaticProps = () => {
+  return {
+    props: {
+      test: '123456789xxx'
+    }
+  }
+}
+
 const { useState, useEffect } = React
+
 const Tag: NextPage = () => {
   const store = useStore()
   const userInfo = store.user.userInfo

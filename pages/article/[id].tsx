@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Input, Button, message } from 'antd'
 import getConnection from 'db'
 import { Articles } from 'db/entity'
-import { NextApiRequest, NextApiResponse, NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import { IArticle } from 'pages/api'
 import styles from './index.module.scss'
 import MarkDown from 'react-markdown'
@@ -20,13 +20,13 @@ import { API_STATUS_CODE } from 'types/enum'
 const { TextArea } = Input
 const { useState } = React
 
-export async function getServerSideProps(req: NextApiRequest & {
-  params: {
-    [index: string]: string
-  }
-}, res: NextApiResponse) {
-  const articleId = req.params?.id
+export const getServerSideProps:GetServerSideProps = async function ({ req, res, params }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
 
+  const articleId = params?.id
   if (!articleId) {
     return {
       props: {}

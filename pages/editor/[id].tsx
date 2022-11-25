@@ -1,7 +1,6 @@
 import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import React from 'react'
-import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import styles from './index.module.scss'
@@ -10,7 +9,7 @@ import request from 'service/fetch'
 import { API_STATUS_CODE } from 'types/enum'
 import { useStore } from 'store'
 import { useRouter } from 'next/router'
-import { NextRequest, NextResponse } from 'next/server'
+import { GetServerSideProps } from 'next'
 import getConnection from 'db'
 import { Articles } from 'db/entity'
 import { IArticle, ITag } from 'pages/api'
@@ -24,12 +23,13 @@ interface ApiPostParamsType {
   content: string
 }
 
-export const getServerSideProps = async (req: NextRequest & {
-  params: {
-    [index: string]: string
-  }
-}, res: NextResponse) => {
-  const { id } = req.params
+export const getServerSideProps:GetServerSideProps = async function ({ req, res, params }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
+  const { id } = params || {}
 
   if (!id || id === 'new') {
     return {

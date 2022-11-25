@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Button, Empty } from "antd"
 import getConnection from "db"
 import { Articles, User } from "db/entity"
-import { NextApiRequest, NextApiResponse, NextPage } from "next"
+import { NextPage, GetServerSideProps} from "next"
 import { useRouter } from "next/router"
 import { IArticle } from 'pages/api'
 import { IUserInfo } from "store/userStore"
@@ -13,8 +13,13 @@ import ListItem from 'components/ListItem'
 import { useStore } from 'store'
 import Head from 'next/head'
 
-export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
-  const curUserId = req?.query?.id
+export const getServerSideProps: GetServerSideProps = async function ({ req, res, query }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
+  const curUserId = query?.id
   if (!curUserId) {
     return {
       props: {}
